@@ -19,7 +19,7 @@ const redisClient = redis.createClient({
   password: process.env.REDIS_PASSWORD,
   legacyMode: true,
 });
-redisClient.connect().catch(console.error);
+redisClient.connect().catch(console.error); // redis 연결
 
 const pageRouter = require("./routes/page");
 const authRouter = require("./routes/auth");
