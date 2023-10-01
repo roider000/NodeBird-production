@@ -1,4 +1,3 @@
-const { useDebugValue } = require("react");
 const Sequelize = require("sequelize");
 
 class Hashtag extends Sequelize.Model {
