@@ -17,9 +17,9 @@ dotenv.config(); // process.env
 const redisClient = redis.createClient({
   url: `redis://${process.env.REDIS_URL}`,
   password: process.env.REDIS_PASSWORD,
-  legacyMode: true,
+  legacyMode: false,
 });
-redisClient.connect().catch(console.error); // redis 연결
+redisClient.connect().catch(console.error);
 
 const pageRouter = require("./routes/page");
 const authRouter = require("./routes/auth");
@@ -84,6 +84,11 @@ app.use(session(sessionOption));
 app.use(passport.initialize());
 // passport.initialize 호출시 req.user, req.login, req.isAuthenticate, req.logout 생성
 app.use(passport.session()); // connect.sid라는 이름으로 세션 쿠키가 브라우저로 전송
+
+app.use((req, res, next) => {
+  console.log("세션:", req.session);
+  next();
+});
 
 app.use("/", pageRouter);
 app.use("/auth", authRouter);

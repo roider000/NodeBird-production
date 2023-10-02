@@ -4,7 +4,9 @@ const Hashtag = require("../models/hashtag");
 exports.afterUploadImage = (req, res) => {
   // 컨트롤러 오기 이전에 single 미들웨어 사용되었음
   console.log("req.file :", req.file);
-  res.json({ url: req.file.location }); // 업로드된 S3의 이미지URL(original/)을 프론트로 다시 보내줌
+  const originalUrl = req.file.location; // 원본 주소
+  const url = original.replace(/\/original\//, "/thumb/"); // "/original/" 을 "/thumb/"로 변경
+  res.json({ url, originalUrl }); // 업로드된 이미지 URL을 프론트로 다시 보내줌.
 };
 
 exports.uploadPost = async (req, res, next) => {
